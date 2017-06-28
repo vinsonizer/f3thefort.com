@@ -39,9 +39,11 @@ add_action( 'wp_enqueue_scripts', 'styles_load_custom' );
 
 // Filter the wp_nav_menu() to add your new menu item
 function add_nav_menu_items($items) {
-    $twitterlink= '<li class="right-nav"><a href="https://www.twitter.com/F3thefort"><i class="fa fa-twitter"></i></a></li>';
-    $slacklink= '<li class="right-nav"><a href="https://f3thefort.slack.com/"><i class="fa fa-slack"></i></a></li>';
-    $items = $items . $twitterlink . $slacklink;
+    if(!wp_is_mobile()) {
+      $twitterlink= '<li class="right-nav"><a href="https://www.twitter.com/F3thefort"><i class="fa fa-twitter"></i></a></li>';
+      $slacklink= '<li class="right-nav"><a href="https://f3thefort.slack.com/"><i class="fa fa-slack"></i></a></li>';
+      $items = $items . $twitterlink . $slacklink;
+    }
     return $items;
 }
 add_filter( 'wp_nav_menu_items', 'add_nav_menu_items', 10, 2 );
