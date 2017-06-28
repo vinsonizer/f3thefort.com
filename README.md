@@ -1,1 +1,1 @@
-Simple Child Theme for f3thefort.com
+Simple Child Theme for [f3thefort.com](http://f3thefort.com)
