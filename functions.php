@@ -74,42 +74,42 @@ add_action('the_content','metawrap_content_div');
 
 
 function get_blast_metabox( $meta_boxes ) {
-	$prefix = '';
+  $prefix = '';
 
-	$meta_boxes[] = array(
-		'id' => 'blast-metabox',
-		'title' => esc_html__( 'Backblast/Preblast Details', 'metabox-online-generator' ),
-		'post_types' => array( 'post', 'page' ),
-		'context' => 'advanced',
-		'priority' => 'default',
-		'autosave' => false,
-		'fields' => array(
-			array(
-				'id' => $prefix . 'qic',
-				'type' => 'text',
-				'name' => esc_html__( 'QIC', 'metabox-online-generator' ),
-				'desc' => esc_html__( 'Q in Charge', 'metabox-online-generator' ),
-			),
-			array(
-				'id' => $prefix . 'workout_date',
-				'type' => 'date',
-				'name' => esc_html__( 'Workout Date', 'metabox-online-generator' ),
-				'js_options' => array(
-					'dateFormat' => 'mm/dd/yy',
-				),
-			),
+  $meta_boxes[] = array(
+    'id' => 'blast-metabox',
+    'title' => esc_html__( 'Backblast/Preblast Details', 'metabox-online-generator' ),
+    'post_types' => array( 'post', 'page' ),
+    'context' => 'advanced',
+    'priority' => 'default',
+    'autosave' => false,
+    'fields' => array(
+      array(
+        'id' => $prefix . 'qic',
+        'type' => 'text',
+        'name' => esc_html__( 'QIC', 'metabox-online-generator' ),
+        'desc' => esc_html__( 'Q in Charge', 'metabox-online-generator' ),
+      ),
+      array(
+        'id' => $prefix . 'workout_date',
+        'type' => 'date',
+        'name' => esc_html__( 'Workout Date', 'metabox-online-generator' ),
+        'js_options' => array(
+          'dateFormat' => 'mm/dd/yy',
+        ),
+      ),
       /* This is for troubleshooting old posts only
-			array(
-				'id' => $prefix . 'the_pax',
-				'type' => 'textarea',
-				'name' => esc_html__( 'PAX', 'metabox-online-generator' ),
-				'desc' => esc_html__( 'Comma separated list of PAX in Attendance', 'metabox-online-generator' ),
-			),
+      array(
+        'id' => $prefix . 'the_pax',
+        'type' => 'textarea',
+        'name' => esc_html__( 'PAX', 'metabox-online-generator' ),
+        'desc' => esc_html__( 'Comma separated list of PAX in Attendance', 'metabox-online-generator' ),
+      ),
       */
-		),
-	);
+    ),
+  );
 
-	return $meta_boxes;
+  return $meta_boxes;
 }
 add_filter( 'rwmb_meta_boxes', 'get_blast_metabox' );
 
