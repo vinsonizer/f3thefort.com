@@ -48,4 +48,55 @@ function add_nav_menu_items($items) {
 }
 add_filter( 'wp_nav_menu_items', 'add_nav_menu_items', 10, 2 );
 
+function metawrap_content_div( $content ){
+  $custom_fields = get_post_custom();
+  $premetacontent = '';
+  $postmetacontent = '';
+  if ($custom_fields["workout_date"][0] || $custom_fields["qic"][0] || $custom_fields["the_pax"][0]) {
+    $premetacontent = $premetacontent . '<div class="meta-tags-content"><div class="well"><ul>';
+    if ($custom_fields["qic"][0]) {
+      $premetacontent = $premetacontent . '<li><strong>QIC:</strong> <span class="qic">' . $custom_fields["qic"][0] . '</span></li>';
+    }
+    if ($custom_fields["workout_date"][0]) {
+      $premetacontent = $premetacontent . '<li><strong>When:</strong> <span class="workout_date">' . $custom_fields["workout_date"][0] . '</span></li>';
+    }
+    $premetacontent = $premetacontent . '</div>';
+    $postmetacontent = '</div>';
+  }
+  $content = $premetacontent . $content . $postmetacontent;
+  return $content;
+}
+add_action('the_content','metawrap_content_div');
+
+function get_blast_metabox( $meta_boxes ) {
+	$prefix = '';
+
+	$meta_boxes[] = array(
+		'id' => 'blast-metabox',
+		'title' => esc_html__( 'Backblast/Preblast Details', 'metabox-online-generator' ),
+		'post_types' => array( 'post', 'page' ),
+		'context' => 'advanced',
+		'priority' => 'default',
+		'autosave' => false,
+		'fields' => array(
+			array(
+				'id' => $prefix . 'qic',
+				'type' => 'text',
+				'name' => esc_html__( 'QIC', 'metabox-online-generator' ),
+				'desc' => esc_html__( 'Q in Charge', 'metabox-online-generator' ),
+			),
+			array(
+				'id' => $prefix . 'workout_date',
+				'type' => 'date',
+				'name' => esc_html__( 'Workout Date', 'metabox-online-generator' ),
+				'js_options' => array(
+					'dateFormat' => 'mm/dd/yy',
+				),
+			),
+		),
+	);
+
+	return $meta_boxes;
+}
+add_filter( 'rwmb_meta_boxes', 'get_blast_metabox' );
 ?>

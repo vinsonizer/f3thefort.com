@@ -84,6 +84,21 @@ input[type="submit"],
 }
 
 
+/* Larger Title */
+
+.post header.entry-header h1.entry-title {
+  font-size: 3.5rem;
+}
+
+
+/* no decoration on the meta-tags for posts*/
+
+div.meta-tags-content div.well ul {
+  list-style: none;
+  margin: 0;
+}
+
+
 /* Theme overrides End */
 
 
