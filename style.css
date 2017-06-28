@@ -1,0 +1,171 @@
+/*
+Theme Name:     The Fort
+Theme URI:      http: //f3thefort.com
+Description:    Child theme for The Fort
+Author:         Jason Vinson (Gears)
+Template:       sela 
+Version:        0.1.0
+*/
+
+@import url("../sela/style.css");
+
+/*
+You can add your own CSS here.
+
+Click the help icon above to learn more.
+*/
+
+
+/* Theme overrides Start */
+
+.menu-toggle {
+  margin: 0;
+}
+
+.site-branding {
+  display: none;
+}
+
+.front-page-content-area .without-featured-image {
+  padding: 0;
+}
+
+.front-page-content-area .entry-header {
+  display: none;
+}
+
+.main-navigation {
+  background-color: black;
+  color: white;
+}
+
+.main-navigation .nav-menu>li>a:after,
+.main-navigation .menu>li>a:after {
+  content: "";
+  color: black;
+}
+
+.fa-home:before {
+  content: "";
+}
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+#infinite-handle span {
+  background-color: black;
+}
+
+
+/* Theme overrides End */
+
+#bottom-half div.media {
+  border: 1px solid black;
+}
+
+
+/* Vertical align hack and logo sizes for tablet+ sizes */
+
+@media only screen and (min-device-width: 768px) {
+  .vcenter {
+    display: flex;
+    align-items: center;
+  }
+  #f3-logo img {
+    width: 50%;
+  }
+  .nav-menu li {
+    float: left;
+  }
+  .nav-menu li a {
+    padding-left: 20px;
+  }
+  .nav-menu li.right-nav {
+    float: right;
+  }
+  .nav-menu li.right-nav a {
+   padding-right: 10px;
+  }
+
+}
+
+@media only screen and (max-device-width: 768px) {
+  #fort-logo {
+    padding: 10px;
+  }
+  #f3-logo {
+    padding: 20px;
+  }
+  #f3-logo img {
+    width: 25%;
+  }
+  #fort-logo img {
+    width: 50%;
+  }
+  #media-caption {
+    margin-bottom: 10px;
+  }
+  #welcome-box {
+    display: none;
+  }
+}
+
+
+/* Start Media Box */
+
+#media-box {
+  background-image: url(http://f3thefort.com/wp-content/uploads/2017/06/shovel_flags.jpg);
+  background-color: rgba(0, 0, 0, .5);
+  background-blend-mode: multiply;
+  color: white;
+  font-size: 180%;
+  text-transform: capitalize;
+  text-align: center;
+  padding: 10px;
+}
+
+
+/* End Media Box */
+
+
+/* Start Welcome Box */
+
+#welcome-box {
+  padding: 36px;
+  background-color: grey;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  font-size: 150%;
+}
+
+
+/* End Welcome Box */
+
+
+/* Start Bottom Half */
+
+#bottom-half {
+  padding-top: 36px;
+}
+
+#bottom-half .row {
+  padding: 12px;
+}
+
+#bottom-half .img-link {
+  width: 128px;
+}
+
+#bottom-half .nav-grid-text h3 {
+  text-transform: uppercase;
+  color: red;
+}
+
+#bottom-half .nav-grid-text .link-chevron {
+  color: red;
+}
+
+
+/* End Bottom Half */
+
