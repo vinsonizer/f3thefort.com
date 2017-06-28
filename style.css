@@ -8,6 +8,10 @@ Version:        0.1.0
 */
 
 @import url("../sela/style.css");
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
 
 /* Theme overrides Start */
 
@@ -78,9 +82,8 @@ input[type="submit"],
     float: right;
   }
   .nav-menu li.right-nav a {
-   padding-right: 10px;
+    padding-right: 10px;
   }
-
 }
 
 @media only screen and (max-device-width: 768px) {
@@ -161,4 +164,3 @@ input[type="submit"],
 
 
 /* End Bottom Half */
-
