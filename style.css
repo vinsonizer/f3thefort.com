@@ -8,6 +8,9 @@ Version:        0.1.0
 */
 
 @import url("../sela/style.css");
+
+/* Google Fonts */
+
 body {
   font-family: 'Roboto', sans-serif;
 }
@@ -19,28 +22,46 @@ body {
   margin: 0;
 }
 
+
+/* Remove block for branding at top */
+
 .site-branding {
   display: none;
 }
+
+
+/* use the maximum width with no padding on front page */
 
 .front-page-content-area .without-featured-image {
   padding: 0;
 }
 
+
+/* No header on the front page */
+
 .front-page-content-area .entry-header {
   display: none;
 }
+
+
+/* fix color scheme of navigation */
 
 .main-navigation {
   background-color: black;
   color: white;
 }
 
+
+/* remove menu separators */
+
 .main-navigation .nav-menu>li>a:after,
 .main-navigation .menu>li>a:after {
   content: "";
   color: black;
 }
+
+
+/* quirkiness with font-awesome adds strange block above home menu item */
 
 .fa-home:before {
   content: "";
@@ -55,11 +76,15 @@ input[type="submit"],
 }
 
 
-/* Theme overrides End */
+/* Fix widths of search bar and AO select in sidebar */
 
-#bottom-half div.media {
-  border: 1px solid black;
+.widget select,
+.search-form label {
+  width: 95%;
 }
+
+
+/* Theme overrides End */
 
 
 /* Vertical align hack and logo sizes for tablet+ sizes */
