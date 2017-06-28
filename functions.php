@@ -6,7 +6,7 @@ function scripts_load_bootstrap()
      
 	wp_register_script( 'bootstrap-js-cdn', 
 		'//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
-		array(), null, false );
+		array('jquery'), null, false );
 	wp_enqueue_script( 'bootstrap-js-cdn' );
 }
 add_action( 'wp_enqueue_scripts', 'scripts_load_bootstrap' );
