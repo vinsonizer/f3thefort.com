@@ -60,7 +60,10 @@ function metawrap_content_div( $content ){
     if ($custom_fields["workout_date"][0]) {
       $premetacontent = $premetacontent . '<li><strong>When:</strong> <span class="workout_date">' . $custom_fields["workout_date"][0] . '</span></li>';
     }
-    $premetacontent = $premetacontent . '<li>' . get_the_tag_list('<strong>Pax:</strong> ', ', ', '</li>');
+    if ($custom_fields["the_pax"][0]) {
+      $premetacontent = $premetacontent . '<li><strong>Pax:</strong> ' . $custom_fields["the_pax"][0] . '</li>';
+    }
+    $premetacontent = $premetacontent . get_the_tag_list('<li><strong>Pax:</strong> ', ', ', '</li>');
     $premetacontent = $premetacontent . '</ul></div>';
     $postmetacontent = '</div>';
   }
@@ -68,6 +71,7 @@ function metawrap_content_div( $content ){
   return $content;
 }
 add_action('the_content','metawrap_content_div');
+
 
 function get_blast_metabox( $meta_boxes ) {
 	$prefix = '';
@@ -94,10 +98,24 @@ function get_blast_metabox( $meta_boxes ) {
 					'dateFormat' => 'mm/dd/yy',
 				),
 			),
+      /* This is for troubleshooting old posts only
+			array(
+				'id' => $prefix . 'the_pax',
+				'type' => 'textarea',
+				'name' => esc_html__( 'PAX', 'metabox-online-generator' ),
+				'desc' => esc_html__( 'Comma separated list of PAX in Attendance', 'metabox-online-generator' ),
+			),
+      */
 		),
 	);
 
 	return $meta_boxes;
 }
 add_filter( 'rwmb_meta_boxes', 'get_blast_metabox' );
+
+
+
+
+
+
 ?>
