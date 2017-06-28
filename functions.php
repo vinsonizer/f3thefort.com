@@ -60,7 +60,8 @@ function metawrap_content_div( $content ){
     if ($custom_fields["workout_date"][0]) {
       $premetacontent = $premetacontent . '<li><strong>When:</strong> <span class="workout_date">' . $custom_fields["workout_date"][0] . '</span></li>';
     }
-    $premetacontent = $premetacontent . '</div>';
+    $premetacontent = $premetacontent . '<li>' . get_the_tag_list('<strong>Pax:</strong> ', ', ', '</li>');
+    $premetacontent = $premetacontent . '</ul></div>';
     $postmetacontent = '</div>';
   }
   $content = $premetacontent . $content . $postmetacontent;
