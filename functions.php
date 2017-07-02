@@ -39,6 +39,9 @@ add_action( 'wp_enqueue_scripts', 'styles_load_custom' );
 
 // Filter the wp_nav_menu() to add your new menu item
 function add_nav_menu_items($items) {
+    if(!is_user_logged_in()) {
+      $items = $items. '<li class="right-nav menu-item login-link"><a href="/wp-login.php">Login</a></li>';
+    }
     if(!wp_is_mobile()) {
       $twitterlink= '<li class="right-nav menu-item"><a href="https://www.twitter.com/F3thefort"><i class="fa fa-twitter"></i></a></li>';
       $slacklink= '<li class="right-nav menu-item"><a href="https://f3thefort.slack.com/"><i class="fa fa-slack"></i></a></li>';
@@ -113,7 +116,11 @@ function get_blast_metabox( $meta_boxes ) {
 }
 add_filter( 'rwmb_meta_boxes', 'get_blast_metabox' );
 
-
+add_filter( 'default_hidden_meta_boxes', 'my_hidden_meta_boxes', 10, 2 );
+function my_hidden_meta_boxes( $hidden, $screen ) {
+  // get these from the css class
+  return array( 'formatdiv', ''); 
+}
 
 
 
