@@ -132,6 +132,12 @@ div.meta-tags-content div.well ul {
   .nav-menu li.right-nav a {
     padding-right: 10px;
   }
+  .main-navigation ul li {
+    padding: .75em 0 .75em 0;
+  }
+  .main-navigation {
+    padding: 0.25em 0;
+  }
 }
 
 @media only screen and (max-device-width: 768px) {
