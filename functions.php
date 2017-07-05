@@ -91,7 +91,7 @@ function get_blast_metabox( $meta_boxes ) {
         'id' => $prefix . 'qic',
         'type' => 'text',
         'name' => esc_html__( 'QIC', 'metabox-online-generator' ),
-        'desc' => esc_html__( 'Q in Charge', 'metabox-online-generator' ),
+        'desc' => esc_html__( 'Workout Q', 'metabox-online-generator' ),
       ),
       array(
         'id' => $prefix . 'workout_date',
@@ -116,13 +116,12 @@ function get_blast_metabox( $meta_boxes ) {
 }
 add_filter( 'rwmb_meta_boxes', 'get_blast_metabox' );
 
-add_filter( 'default_hidden_meta_boxes', 'my_hidden_meta_boxes', 10, 2 );
-function my_hidden_meta_boxes( $hidden, $screen ) {
-  // get these from the css class
-  return array( 'formatdiv', ''); 
+// REMOVE POST META BOXES
+/*
+function remove_my_post_metaboxes() {
+  remove_meta_box( 'formatdiv','post','normal' ); // Format Div
 }
-
-
-
+add_action('admin_menu','remove_my_post_metaboxes');
+ */
 
 ?>
