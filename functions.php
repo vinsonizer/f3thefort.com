@@ -117,11 +117,14 @@ function get_blast_metabox( $meta_boxes ) {
 add_filter( 'rwmb_meta_boxes', 'get_blast_metabox' );
 
 // REMOVE POST META BOXES
-/*
 function remove_my_post_metaboxes() {
   remove_meta_box( 'formatdiv','post','normal' ); // Format Div
+  remove_meta_box( 'postcustom','post','normal' ); // Custom Fields
+  remove_meta_box( 'trackbacksdiv','post','normal' ); // Trackback and Pingback
+  remove_meta_box( 'postexcerpt','post','normal' ); // Custom Excerpt
+  remove_meta_box( 'slugdiv','post','normal' ); // Custom Slug
+  remove_meta_box( 'commentstatusdiv','post','normal' ); // Allow Comments
 }
 add_action('admin_menu','remove_my_post_metaboxes');
- */
 
 ?>
