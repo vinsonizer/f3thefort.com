@@ -107,7 +107,7 @@ function get_blast_metabox( $meta_boxes ) {
         'id' => $prefix . 'pax_instructions',
         'type' => 'heading',
         'name' => esc_html__( 'Other Instructions', 'metabox-online-generator' ),
-        'desc' => esc_html__( 'For Pax, enter in tags in the box on the right side of this page', 'metabox-online-generator' ),
+        'desc' => esc_html__( 'List Pax at the workout as tags in the box on the right side of this page.  Please include the Q(s) in this list', 'metabox-online-generator' ),
         'std' => 'Header Default',
       ),
       /* This is for troubleshooting old posts only
