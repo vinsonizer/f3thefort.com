@@ -51,6 +51,7 @@ function add_nav_menu_items($items) {
 }
 add_filter( 'wp_nav_menu_items', 'add_nav_menu_items', 10, 2 );
 
+
 function metawrap_content_div( $content ){
   $custom_fields = get_post_custom();
   $premetacontent = '';
@@ -97,9 +98,17 @@ function get_blast_metabox( $meta_boxes ) {
         'id' => $prefix . 'workout_date',
         'type' => 'date',
         'name' => esc_html__( 'Workout Date', 'metabox-online-generator' ),
+        'desc' => esc_html__( 'The actual date of the workout', 'metabox-online-generator'),
         'js_options' => array(
           'dateFormat' => 'mm/dd/yy',
         ),
+      ),
+      array(
+        'id' => $prefix . 'pax_instructions',
+        'type' => 'heading',
+        'name' => esc_html__( 'Other Instructions', 'metabox-online-generator' ),
+        'desc' => esc_html__( 'For Pax, enter in tags in the box on the right side of this page', 'metabox-online-generator' ),
+        'std' => 'Header Default',
       ),
       /* This is for troubleshooting old posts only
       array(
