@@ -95,11 +95,9 @@ function tclaps_snippet() {
 
   $tclaps = ($tclaps == "") ? 0 : $tclaps;
 
-  $nonce = wp_create_nonce("my_user_tclap_nonce");
-
   $snippet = '<div class="tclapsection">';
   
-  $snippet = $snippet . '<span class="tclapsbox user_tclap" data-nonce="' . $nonce . '" data-post_id="' . $post->ID . '">';
+  $snippet = $snippet . '<span class="tclapsbox user_tclap" data-post_id="' . $post->ID . '">';
   $snippet = $snippet . '<span>';  
   $snippet = $snippet . '<i class="fa fa-sign-language"></i> TClap | ';
   $snippet = $snippet . '</span><span id="tclap_counter">' . $tclaps . '</span>';
@@ -114,14 +112,9 @@ add_action('the_content','metawrap_content_div');
 
 
 add_action("wp_ajax_my_user_tclap", "my_user_tclap");
-add_action("wp_ajax_nopriv_my_user_tclap", "my_must_login");
+add_action("wp_ajax_nopriv_my_user_tclap", "my_user_tclap");
 
 function my_user_tclap() {
-
-   if ( !wp_verify_nonce( $_REQUEST['nonce'], "my_user_tclap_nonce")) {
-      exit("No naughty business please");
-   }   
-
    $tclap_count = get_post_meta($_REQUEST["post_id"], "tclaps", true);
    $tclap_count = ($tclap_count == '') ? 0 : $tclap_count;
    $new_tclap_count = $tclap_count + 1;
@@ -144,14 +137,8 @@ function my_user_tclap() {
    else {
       header("Location: ".$_SERVER["HTTP_REFERER"]);
    }
-
    die();
 
-}
-
-function my_must_login() {
-   echo "You must log in to tclap";
-   die();
 }
 
 function get_blast_metabox( $meta_boxes ) {
