@@ -107,6 +107,13 @@ div.meta-tags-content div.well ul {
 }
 
 
+/* hide separator bar in footer */
+
+footer.entry-meta span.sep {
+  display: none;
+}
+
+
 /* Theme overrides End */
 
 
@@ -224,14 +231,29 @@ div.meta-tags-content div.well ul {
 /* Start TClaps Custom Section */
 
 .tclapsection {
+  /* uncomment this to hide the block during dev */
   /* display: none; */
 }
 
 .tclapsbox {
-  background-color: #dcdcdc;
+  background-color: #f3f3f3;
   padding: 6px;
   border: 1px solid black;
   cursor: pointer;
+  width: 120px;
+  display: flex;
+}
+
+.tclapsbox div {
+  margin: auto;
+}
+
+.tclapsbox div.tclap_spinner {
+  display: none;
+}
+
+div.tclap_spinner img {
+  height: 24px;
 }
 
 
