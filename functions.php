@@ -175,6 +175,16 @@ function get_blast_metabox( $meta_boxes ) {
         'std' => 'Header Default',
       ),
     ),
+    'validation' => array(
+      'rules'    => array(
+        "{$prefix}qic" => array(
+          'required'  => true,
+        ),
+        "{$prefix}workout_date" => array(
+          'required'  => true,
+        ),
+      ),
+    ),
   );
 
   return $meta_boxes;
