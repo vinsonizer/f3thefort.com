@@ -1,6 +1,8 @@
 <?php
 
-// add bootstrap js to the header
+/* Start loading custom js and css */
+
+// add bootstrap js and theme js to the header
 function scripts_load_bootstrap_and_custom_js()
 {
      
@@ -42,8 +44,9 @@ function styles_load_custom()
 
 }
 add_action( 'wp_enqueue_scripts', 'styles_load_custom' );
+/* End loading custom js and css */
 
-// Filter the wp_nav_menu() to add your new menu item
+/* Start appending custom menu items */
 function add_nav_menu_items($items) {
     if(!is_user_logged_in()) {
       $items = $items. '<li class="right-nav menu-item login-link"><a href="/wp-login.php">Login</a></li>';
@@ -56,8 +59,9 @@ function add_nav_menu_items($items) {
     return $items;
 }
 add_filter( 'wp_nav_menu_items', 'add_nav_menu_items', 10, 2 );
+/* End appending custom menu items */
 
-
+/* Start custom content wrapping */
 function metawrap_content_div( $content ){
   $custom_fields = get_post_custom();
   $premetacontent = '';
@@ -109,8 +113,11 @@ function tclaps_snippet() {
 }
 
 add_action('the_content','metawrap_content_div');
+/* End Custom content wrapping */
 
-
+/* Start TClaps Ajax */
+// Note that code above for content wrapping creates the controls, 
+// This is simply the logic that is invoked when clicked
 add_action("wp_ajax_my_user_tclap", "my_user_tclap");
 add_action("wp_ajax_nopriv_my_user_tclap", "my_user_tclap");
 
@@ -138,9 +145,11 @@ function my_user_tclap() {
       header("Location: ".$_SERVER["HTTP_REFERER"]);
    }
    die();
-
 }
 
+/* End TClaps Ajax */
+
+/* Start Metabox Plugin Configuration for Custom Fields */
 function get_blast_metabox( $meta_boxes ) {
   $prefix = '';
 
@@ -190,8 +199,9 @@ function get_blast_metabox( $meta_boxes ) {
   return $meta_boxes;
 }
 add_filter( 'rwmb_meta_boxes', 'get_blast_metabox' );
+/* End Metabox Plugin Configuration for Custom Fields */
 
-// REMOVE POST META BOXES
+/* Start filtering post editing metaboxes */
 function remove_my_post_metaboxes() {
   remove_meta_box( 'formatdiv','post','normal' ); // Format Div
   remove_meta_box( 'postcustom','post','normal' ); // Custom Fields
@@ -201,5 +211,6 @@ function remove_my_post_metaboxes() {
   remove_meta_box( 'commentstatusdiv','post','normal' ); // Allow Comments
 }
 add_action('admin_menu','remove_my_post_metaboxes');
+/* End filtering post editing metaboxes */
 
 ?>
