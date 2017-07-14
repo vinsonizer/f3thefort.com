@@ -219,3 +219,20 @@ div.meta-tags-content div.well ul {
 
 
 /* End Bottom Half */
+
+
+/* Start TClaps Custom Section */
+
+.tclapsection {
+  /* display: none; */
+}
+
+.tclapsbox {
+  background-color: #dcdcdc;
+  padding: 6px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+
+/* End TClaps Custom Section */

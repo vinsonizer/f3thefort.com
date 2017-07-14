@@ -1,15 +1,21 @@
 <?php
 
 // add bootstrap js to the header
-function scripts_load_bootstrap()
+function scripts_load_bootstrap_and_custom_js()
 {
      
   wp_register_script( 'bootstrap-js-cdn', 
     '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
     array('jquery'), null, false );
   wp_enqueue_script( 'bootstrap-js-cdn' );
+  wp_register_script( 'theme-functions-js', 
+    '//f3thefort.com/wp-content/themes/thefort/theme-functions.js',
+    array('jquery'), null, false );
+  wp_localize_script( 'theme-functions-js', 'myAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));        
+
+  wp_enqueue_script( 'theme-functions-js' );
 }
-add_action( 'wp_enqueue_scripts', 'scripts_load_bootstrap' );
+add_action( 'wp_enqueue_scripts', 'scripts_load_bootstrap_and_custom_js' );
 
 // add bootstrap and font-awesome to the header
 function styles_load_custom()
@@ -69,13 +75,84 @@ function metawrap_content_div( $content ){
     }
     $premetacontent = $premetacontent . get_the_tag_list('<li><strong>Pax:</strong> ', ', ', '</li>');
     $premetacontent = $premetacontent . '</ul></div>';
-    $postmetacontent = '</div>';
+    
+    $postmetacontent = $postmetacontent . tclaps_snippet();
+    
+    $postmetacontent = $postmetacontent . '</div>';
+    
   }
   $content = $premetacontent . $content . $postmetacontent;
   return $content;
 }
+
+
+/**
+ * Function to create code snippet for tclaps button
+ */
+function tclaps_snippet() {
+  global $post;
+  $tclaps = get_post_meta($post->ID, "tclaps", true);
+
+  $tclaps = ($tclaps == "") ? 0 : $tclaps;
+
+  $nonce = wp_create_nonce("my_user_tclap_nonce");
+
+  $snippet = '<div class="tclapsection">';
+  
+  $snippet = $snippet . '<span class="tclapsbox user_tclap" data-nonce="' . $nonce . '" data-post_id="' . $post->ID . '">';
+  $snippet = $snippet . '<span>';  
+  $snippet = $snippet . '<i class="fa fa-sign-language"></i> TClap | ';
+  $snippet = $snippet . '</span><span id="tclap_counter">' . $tclaps . '</span>';
+  $snippet = $snippet . '</span>';
+  
+  $snippet = $snippet . '</div>';
+  
+  return $snippet;
+}
+
 add_action('the_content','metawrap_content_div');
 
+
+add_action("wp_ajax_my_user_tclap", "my_user_tclap");
+add_action("wp_ajax_nopriv_my_user_tclap", "my_must_login");
+
+function my_user_tclap() {
+
+   if ( !wp_verify_nonce( $_REQUEST['nonce'], "my_user_tclap_nonce")) {
+      exit("No naughty business please");
+   }   
+
+   $tclap_count = get_post_meta($_REQUEST["post_id"], "tclaps", true);
+   $tclap_count = ($tclap_count == '') ? 0 : $tclap_count;
+   $new_tclap_count = $tclap_count + 1;
+
+   $tclap = update_post_meta($_REQUEST["post_id"], "tclaps", $new_tclap_count);
+
+   if($tclap === false) {
+      $result['type'] = "error";
+      $result['tclap_count'] = $tclap_count;
+   }
+   else {
+      $result['type'] = "success";
+      $result['tclap_count'] = $new_tclap_count;
+   }
+
+   if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+      $result = json_encode($result);
+      echo $result;
+   }
+   else {
+      header("Location: ".$_SERVER["HTTP_REFERER"]);
+   }
+
+   die();
+
+}
+
+function my_must_login() {
+   echo "You must log in to tclap";
+   die();
+}
 
 function get_blast_metabox( $meta_boxes ) {
   $prefix = '';
@@ -110,14 +187,6 @@ function get_blast_metabox( $meta_boxes ) {
         'desc' => esc_html__( 'List Pax at the workout as tags in the box on the right side of this page.  Please include the Q(s) in this list', 'metabox-online-generator' ),
         'std' => 'Header Default',
       ),
-      /* This is for troubleshooting old posts only
-      array(
-        'id' => $prefix . 'the_pax',
-        'type' => 'textarea',
-        'name' => esc_html__( 'PAX', 'metabox-online-generator' ),
-        'desc' => esc_html__( 'Comma separated list of PAX in Attendance', 'metabox-online-generator' ),
-      ),
-      */
     ),
   );
 
