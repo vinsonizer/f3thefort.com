@@ -42,6 +42,9 @@ function styles_load_custom()
     array('bootstrap-style-cdn'), '3.3.7', 'all' );
   wp_enqueue_style( 'bootstrap-theme-style-cdn' );
 
+  wp_enqueue_style( 'theme-styles', get_stylesheet_directory_uri() . '/style.css', array(), filemtime( get_stylesheet_directory() . '/style.css' ) );
+
+  
 }
 add_action( 'wp_enqueue_scripts', 'styles_load_custom' );
 /* End loading custom js and css */
@@ -166,7 +169,7 @@ function get_blast_metabox( $meta_boxes ) {
     'title' => esc_html__( 'Backblast/Preblast Details', 'metabox-online-generator' ),
     'post_types' => array( 'post', 'page' ),
     'context' => 'advanced',
-    'priority' => 'default',
+    'priority' => 'high',
     'autosave' => false,
     'fields' => array(
       array(
@@ -188,7 +191,7 @@ function get_blast_metabox( $meta_boxes ) {
         'id' => $prefix . 'pax_instructions',
         'type' => 'heading',
         'name' => esc_html__( 'Other Instructions', 'metabox-online-generator' ),
-        'desc' => esc_html__( 'List Pax at the workout as tags in the box on the right side of this page.  Please include the Q(s) in this list', 'metabox-online-generator' ),
+        'desc' => esc_html__( 'List Pax at the workout as tags in the box on the right side of this page for backblasts.  Please include the Q(s) in this list', 'metabox-online-generator' ),
         'std' => 'Header Default',
       ),
     ),
@@ -207,6 +210,15 @@ function get_blast_metabox( $meta_boxes ) {
   return $meta_boxes;
 }
 add_filter( 'rwmb_meta_boxes', 'get_blast_metabox' );
+
+
+// Move all "advanced" metaboxes above the default editor
+add_action('edit_form_after_title', function() {
+    global $post, $wp_meta_boxes;
+    do_meta_boxes(get_current_screen(), 'advanced', $post);
+    unset($wp_meta_boxes[get_post_type($post)]['advanced']);
+});
+
 /* End Metabox Plugin Configuration for Custom Fields */
 
 /* Start filtering post editing metaboxes */
