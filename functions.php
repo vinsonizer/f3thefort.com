@@ -5,15 +5,21 @@
 // add bootstrap js and theme js to the header
 function scripts_load_bootstrap_and_custom_js()
 {
-     
-  wp_register_script( 'bootstrap-js-cdn', 
+
+  wp_register_script( 'bootstrap-js-cdn',
     '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
     array('jquery'), null, false );
   wp_enqueue_script( 'bootstrap-js-cdn' );
-  wp_register_script( 'theme-functions-js', 
+
+  wp_register_script( 'jquery-cookie-js',
+    '//f3thefort.com/wp-content/themes/thefort/js.cookie.js',
+    array('jquery'), null, false );
+  wp_enqueue_script( 'jquery-cookie-js' );
+
+  wp_register_script( 'theme-functions-js',
     '//f3thefort.com/wp-content/themes/thefort/theme-functions.js',
     array('jquery'), null, false );
-  wp_localize_script( 'theme-functions-js', 'myAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));        
+  wp_localize_script( 'theme-functions-js', 'myAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
 
   wp_enqueue_script( 'theme-functions-js' );
 }
@@ -44,7 +50,7 @@ function styles_load_custom()
 
   wp_enqueue_style( 'theme-styles', get_stylesheet_directory_uri() . '/style.css', array(), filemtime( get_stylesheet_directory() . '/style.css' ) );
 
-  
+
 }
 add_action( 'wp_enqueue_scripts', 'styles_load_custom' );
 /* End loading custom js and css */
@@ -82,11 +88,11 @@ function metawrap_content_div( $content ){
     }
     $premetacontent = $premetacontent . get_the_tag_list('<li><strong>Pax:</strong> ', ', ', '</li>');
     $premetacontent = $premetacontent . '</ul></div>';
-    
+
     $postmetacontent = $postmetacontent . tclaps_snippet();
-    
+
     $postmetacontent = $postmetacontent . '</div>';
-    
+
   }
   $content = $premetacontent . $content . $postmetacontent;
   return $content;
@@ -103,17 +109,17 @@ function tclaps_snippet() {
   $tclaps = ($tclaps == "") ? 0 : $tclaps;
 
   $snippet = '<div class="tclapsection">';
-  
+
   $snippet = $snippet . '<div class="tclapsbox user_tclap" data-post_id="' . $post->ID . '">';
-  $snippet = $snippet . '<div>';  
+  $snippet = $snippet . '<div>';
   $snippet = $snippet . '<i class="fa fa-sign-language"></i> TClap | ';
   $snippet = $snippet . '</div>';
   $snippet = $snippet . '<div class="tclap_counter">' . $tclaps . '</div>';
   $snippet = $snippet . '<div class="tclap_spinner">' . tclaps_spinner_snippet() . '</div>';
   $snippet = $snippet . '</div>';
-  
+
   $snippet = $snippet . '</div>';
-  
+
   return $snippet;
 }
 
@@ -127,7 +133,7 @@ add_action('the_content','metawrap_content_div');
 /* End Custom content wrapping */
 
 /* Start TClaps Ajax */
-// Note that code above for content wrapping creates the controls, 
+// Note that code above for content wrapping creates the controls,
 // This is simply the logic that is invoked when clicked
 add_action("wp_ajax_my_user_tclap", "my_user_tclap");
 add_action("wp_ajax_nopriv_my_user_tclap", "my_user_tclap");
