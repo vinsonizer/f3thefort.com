@@ -173,7 +173,7 @@ function get_blast_metabox( $meta_boxes ) {
   $meta_boxes[] = array(
     'id' => 'blast-metabox',
     'title' => esc_html__( 'Backblast/Preblast Details', 'metabox-online-generator' ),
-    'post_types' => array( 'post', 'page' ),
+    'post_types' => array( 'post'),
     'context' => 'advanced',
     'priority' => 'high',
     'autosave' => false,
