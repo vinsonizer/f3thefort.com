@@ -234,7 +234,6 @@ function remove_my_post_metaboxes() {
   remove_meta_box( 'trackbacksdiv','post','normal' ); // Trackback and Pingback
   remove_meta_box( 'postexcerpt','post','normal' ); // Custom Excerpt
   remove_meta_box( 'slugdiv','post','normal' ); // Custom Slug
-  remove_meta_box( 'commentstatusdiv','post','normal' ); // Allow Comments
 }
 add_action('admin_menu','remove_my_post_metaboxes');
 /* End filtering post editing metaboxes */
