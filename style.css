@@ -109,7 +109,7 @@ div.meta-tags-content div.well ul {
 
 /* hide separator bar in footer */
 
-footer.entry-meta span.sep {
+footer.entry-meta {
   display: none;
 }
 
