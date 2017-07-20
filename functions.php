@@ -123,17 +123,16 @@ function tclaps_snippet() {
 
   $tclaps = ($tclaps == "") ? 0 : $tclaps;
 
-  $snippet = '<div class="tclapsection">';
-
-  $snippet = $snippet . '<div class="tclapsbox user_tclap" data-post_id="' . $post->ID . '">';
-  $snippet = $snippet . '<div>';
-  $snippet = $snippet . '<i class="fa fa-sign-language"></i> TClap | ';
-  $snippet = $snippet . '</div>';
-  $snippet = $snippet . '<div class="tclap_counter">' . $tclaps . '</div>';
-  $snippet = $snippet . '<div class="tclap_spinner"><i class="fa fa-spinner fa-spin fa-fw"></i></div>';
-  $snippet = $snippet . '</div>';
-
-  $snippet = $snippet . '</div>';
+  $snippet = '';
+  $snippet .= '<div class="tclapsection">';
+  $snippet .= '  <div class="tclapsbox user_tclap" data-post_id="' . $post->ID . '">';
+  $snippet .= '    <div>';
+  $snippet .= '      <i class="fa fa-sign-language"></i> TClap | ';
+  $snippet .= '    </div>';
+  $snippet .= '    <div class="tclap_counter">' . $tclaps . '</div>';
+  $snippet .= '    <div class="tclap_spinner"><i class="fa fa-spinner fa-spin fa-fw"></i></div>';
+  $snippet .= '  </div>';
+  $snippet .= '</div>';
 
   return $snippet;
 }
