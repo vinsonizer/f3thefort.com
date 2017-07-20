@@ -72,26 +72,28 @@ add_filter( 'wp_nav_menu_items', 'add_nav_menu_items', 10, 2 );
 
 /* Start custom content wrapping */
 function metawrap_content_div( $content ){
-  $custom_fields = get_post_custom();
-  $premetacontent = '<div class="meta-tags-content"><div class="well"><ul>';
-  $postmetacontent = '';
-  if ($custom_fields["workout_date"][0] || $custom_fields["qic"][0] || $custom_fields["the_pax"][0]) {
-    if ($custom_fields["qic"][0]) {
-      $premetacontent = $premetacontent . '<li><strong>QIC:</strong> <span class="qic">' . $custom_fields["qic"][0] . ' </span></li>';
+  global $post;
+  if($post->post_type == 'post') {
+    $custom_fields = get_post_custom();
+    $premetacontent = '<div class="meta-tags-content"><div class="well"><ul>';
+    $postmetacontent = '';
+    if ($custom_fields["workout_date"][0] || $custom_fields["qic"][0] || $custom_fields["the_pax"][0]) {
+      if ($custom_fields["qic"][0]) {
+        $premetacontent = $premetacontent . '<li><strong>QIC:</strong> <span class="qic">' . $custom_fields["qic"][0] . ' </span></li>';
+      }
+      if ($custom_fields["workout_date"][0]) {
+        $premetacontent = $premetacontent . '<li><strong>When:</strong> <span class="workout_date">' . $custom_fields["workout_date"][0] . ' </span></li>';
+      }
+      if ($custom_fields["the_pax"][0]) {
+        $premetacontent = $premetacontent . '<li><strong>Pax:</strong> ' . $custom_fields["the_pax"][0] . ' </li>';
+      }
     }
-    if ($custom_fields["workout_date"][0]) {
-      $premetacontent = $premetacontent . '<li><strong>When:</strong> <span class="workout_date">' . $custom_fields["workout_date"][0] . ' </span></li>';
-    }
-    if ($custom_fields["the_pax"][0]) {
-      $premetacontent = $premetacontent . '<li><strong>Pax:</strong> ' . $custom_fields["the_pax"][0] . ' </li>';
-    }
-
+    $premetacontent = $premetacontent . get_the_tag_list('<li><strong>Pax:</strong> <span class="the_pax">', ', ', ' </span></li> ');
+    $premetacontent = $premetacontent . format_categories();
+    $premetacontent = $premetacontent . '</ul></div>';
+    $postmetacontent = $postmetacontent . tclaps_snippet() . '</div>';
+    $content = $premetacontent . $content . $postmetacontent;
   }
-  $premetacontent = $premetacontent . get_the_tag_list('<li><strong>Pax:</strong> <span class="the_pax">', ', ', ' </span></li> ');
-  $premetacontent = $premetacontent . '<li><strong>Posted In:</strong> <span class="the_categories"> ' .  format_categories() . '</span></li>';
-  $premetacontent = $premetacontent . '</ul></div>';
-  $postmetacontent = $postmetacontent . tclaps_snippet() . '</div>';
-  $content = $premetacontent . $content . $postmetacontent;
   return $content;
 }
 
@@ -100,11 +102,14 @@ function format_categories() {
   $separator = ', ';
   $output = '';
   if ( ! empty( $categories ) ) {
+    $output .= '<li><strong>Posted In:</strong> <span class="the_categories">';
     foreach( $categories as $category ) {
         $output .= '<a href="' . esc_url( get_category_link( $category->term_id ) ) . '" alt="' . esc_attr( sprintf( __( 'View all posts in %s', 'textdomain' ), $category->name ) ) . '">' . esc_html( $category->name ) . '</a>' . $separator;
     }
+    $output = trim($output, $separator);
+    $output .= ' </span></li>';
   }
-  return trim( $output, $separator );
+  return $output;
 }
 
 
