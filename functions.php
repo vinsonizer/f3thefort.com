@@ -130,17 +130,11 @@ function tclaps_snippet() {
   $snippet = $snippet . '<i class="fa fa-sign-language"></i> TClap | ';
   $snippet = $snippet . '</div>';
   $snippet = $snippet . '<div class="tclap_counter">' . $tclaps . '</div>';
-  $snippet = $snippet . '<div class="tclap_spinner">' . tclaps_spinner_snippet() . '</div>';
+  $snippet = $snippet . '<div class="tclap_spinner"><i class="fa fa-spinner fa-spin fa-fw"></i></div>';
   $snippet = $snippet . '</div>';
 
   $snippet = $snippet . '</div>';
 
-  return $snippet;
-}
-
-// Totally ripped from https://loading.io/
-function tclaps_spinner_snippet() {
-  $snippet = '<img src="http://f3thefort.com/wp-content/uploads/2017/07/Spinner.gif"/>';
   return $snippet;
 }
 
