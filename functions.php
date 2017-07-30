@@ -48,7 +48,7 @@ function styles_load_custom()
     array('bootstrap-style-cdn'), '3.3.7', 'all' );
   wp_enqueue_style( 'bootstrap-theme-style-cdn' );
 
-  wp_enqueue_style( 'theme-styles', get_stylesheet_directory_uri() . '/styles/style.css', array(), filemtime( get_stylesheet_directory() . '/style.css' ) );
+  wp_enqueue_style( 'theme-styles', get_stylesheet_directory_uri() . '/styles/style.css', array(), filemtime( get_stylesheet_directory() . '/styles/style.css' ) );
 
 
 }
@@ -92,6 +92,7 @@ function metawrap_content_div( $content ){
     $premetacontent = $premetacontent . format_categories();
     $premetacontent = $premetacontent . '</ul></div>';
     $postmetacontent = $postmetacontent . tclaps_snippet() . '</div>';
+    $postmetacontent = $postmetacontent . '<div style="display:none" id="jv_tests">' . get_stylesheet_directory_uri() . '/styles/style.css' . '</div>';
     $content = $premetacontent . $content . $postmetacontent;
   }
   return $content;
