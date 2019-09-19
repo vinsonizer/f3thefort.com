@@ -247,4 +247,11 @@ function remove_my_post_metaboxes() {
 add_action('admin_menu','remove_my_post_metaboxes');
 /* End filtering post editing metaboxes */
 
+/* Start Disable RSS Caching */
+function prefix_set_feed_cache_time( $seconds ) {
+    return 1;
+}
+add_filter( 'wp_feed_cache_transient_lifetime' , 'prefix_set_feed_cache_time' );
+/* End Disable RSS Caching */
+
 ?>
