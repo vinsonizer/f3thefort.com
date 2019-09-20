@@ -254,4 +254,59 @@ function prefix_set_feed_cache_time( $seconds ) {
 add_filter( 'wp_feed_cache_transient_lifetime' , 'prefix_set_feed_cache_time' );
 /* End Disable RSS Caching */
 
+/* Start tag cloud customization */
+
+function print_debug($content, $tag) {
+  $output = '<span style="display:none" id="';
+  $output .= $tag;
+  $output .= '">';
+  print_r($output);
+  print_r($content);
+  print_r('</span>');
+}
+/* 2021 */
+function set_widget_tag_cloud_args($args) {
+
+  $postargs = array(
+ 	  'numberposts' => 50,
+ 	  'orderby' => 'post_date',
+ 	  'order' => 'DESC',
+ 	  'post_type' => 'post',
+ 	  'post_status' => 'publish'
+  );
+
+  $recent_posts = wp_get_recent_posts( $postargs, ARRAY_A );
+
+
+  $tags = array();
+  if ( ! empty( $recent_posts) ) {
+    foreach( $recent_posts as $a_post ):
+      print_debug($a_post['ID'], 'debug_post');
+      $post_tags = get_the_terms( $a_post['ID'], 'post_tag' );
+      if ( ! empty( $post_tags ) && ! is_wp_error( $post_tags ) ) {
+        $tag_terms = wp_list_pluck($post_tags, 'term_id');
+        print_debug($tag_terms, 'debug_terms');
+        $tags = $tags + $tag_terms;
+      }
+    endforeach;
+  }
+
+  wp_reset_query();
+
+  print_debug($tags, "debug_tags");
+
+  $tags = array_unique($tags);
+  $tag_list = implode(',', $tags);
+
+  /* $my_args = array('include' => $tag_list, 'number' => 0 ); */
+  $my_args = array('number' => 50, 'include' => $tag_list);
+  $args = wp_parse_args( $args, $my_args );
+  return $args;
+}
+
+add_filter('widget_tag_cloud_args','set_widget_tag_cloud_args');
+
+/* End tag cloud customization */
+
+
 ?>
